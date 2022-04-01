@@ -81,7 +81,7 @@ class Client:
 
 myWorld = World()        
 
-def set_listener( entity, data ):
+def set_listener(entity, data):
     ''' do something with the update ! '''
     for key, value in data.items():
         myWorld.update(entity, key, value)
@@ -100,10 +100,9 @@ def read_ws(ws,client):
     try:
         while True:
             msg = ws.receive()
-            print("WS RECV: %s" % msg)
             if (msg is not None):
                 packet = json.loads(msg)
-                send_all_json( packet )
+                send_all_json(packet)
             else:
                 break
     except:
@@ -118,7 +117,6 @@ def subscribe_socket(ws):
     g = gevent.spawn( read_ws, ws, client )    
     try:
         while True:
-            # block here
             msg = client.get()
             ws.send(msg)
     except Exception as e:# WebSocketError as e:
